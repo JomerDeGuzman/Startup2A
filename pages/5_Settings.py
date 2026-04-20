@@ -70,7 +70,7 @@ st.markdown(
     <div class="settings-card">
     <h3 style="margin-top: 0;">Reset Progress</h3>
     <p style="margin-bottom: 0; color: var(--settings-muted-text);">
-    Use this to clear your data and start fresh. This will reset your name, mood, tasks, expenses, coins, level, and daily budget to their default values.
+    (Optional) Use this to clear your data and start fresh. This will reset your name, mood, tasks, expenses, coins, level, and daily budget to their default values.
     </p>
     </div>
     """,unsafe_allow_html=True)
