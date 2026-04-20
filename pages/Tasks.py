@@ -4,7 +4,11 @@ from logic import make_id, refresh_level, task_reward
 from store import load_data, save_data
 from ui import render_sidebar
 
-
+# Check if user is logged in
+if "logged_in" not in st.session_state or not st.session_state.logged_in:
+    st.error("Please login first!")
+    st.stop()
+    
 st.set_page_config(page_title='Student Quest - Settings', layout='wide')
 
 st.title("Tasks")

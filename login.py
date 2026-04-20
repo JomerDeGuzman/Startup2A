@@ -5,6 +5,9 @@
 
 import streamlit as st
 
+from store import default_data, load_data, save_data
+from ui import render_sidebar
+
 st.set_page_config(page_title='Survive-A-Semester', layout='centered')
 
 # Initialize session state
