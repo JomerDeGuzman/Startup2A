@@ -7,7 +7,13 @@
 import streamlit as st
 from database import DatabaseConnection
 from db_config import DB_CONFIG
-from session_manager import create_session, validate_session, cleanup_expired_sessions
+from session_manager import (
+    cleanup_expired_sessions,
+    create_public_session_token,
+    create_session,
+    parse_public_session_token,
+    validate_session,
+)
 
 st.set_page_config(page_title='Survive-A-Semester', layout='centered')
 
@@ -26,8 +32,8 @@ st.markdown(
 # Check for existing session in URL params
 cleanup_expired_sessions()
 query_params = st.query_params
-if "session_id" in query_params:
-    session_id = query_params["session_id"]
+if "auth" in query_params:
+    session_id = parse_public_session_token(query_params["auth"])
     username = validate_session(session_id)
     if username:
         st.session_state.logged_in = True
@@ -35,9 +41,9 @@ if "session_id" in query_params:
         st.session_state.session_id = session_id
         st.switch_page("pages/0_Dashboard.py")
     else:
-        # Session expired, clear and continue to login
-        if "session_id" in st.query_params:
-            del st.query_params["session_id"]
+        # Invalid or expired token, clear and continue to login
+        if "auth" in st.query_params:
+            del st.query_params["auth"]
 
 # Initialize session state
 if "logged_in" not in st.session_state:
@@ -113,11 +119,12 @@ def login_page():
                 st.session_state.logged_in = True
                 st.session_state.username = username
                 st.session_state.session_id = session_id
+                auth_token = create_public_session_token(session_id)
                 st.success("✅ Logged in successfully!")
-                # Redirect with session_id in URL using JavaScript
+                # Redirect with opaque auth token in URL (raw session_id hidden)
                 st.markdown(f"""
                     <script>
-                        window.location.href = "?session_id={session_id}";
+                        window.location.href = "?auth={auth_token}";
                     </script>
                 """, unsafe_allow_html=True)
                 st.stop()

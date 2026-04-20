@@ -1,11 +1,28 @@
 {
-    "student_name": "",
-    "daily_budget": 0.0,
-    "mood": "Okay",
-    "tomorrow_needs": "",
+    "student_name": "Naven",
+    "daily_budget": 150.0,
+    "mood": "Stressed",
+    "tomorrow_needs": "bro i want breakfast.",
     "tasks": [],
-    "expenses": [],
+    "expenses": [
+        {
+            "id": "20260420155633125375",
+            "label": "Gardenia",
+            "amount": 60.0
+        }
+    ],
+    "history": [
+        {
+            "id": "20260420155633125436",
+            "timestamp": "2026-04-20T15:56:33",
+            "category": "expense",
+            "action": "add",
+            "title": "Gardenia",
+            "amount": 60.0,
+            "expense_id": "20260420155633125375"
+        }
+    ],
     "level": 1,
     "coins": 0,
-    "last_updated": ""
+    "last_updated": "2026-04-20T15:56:33"
 }

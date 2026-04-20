@@ -8,4 +8,15 @@ The system aims to help improve the productivity of students by making each task
 
 Features:
 
-1. Task Prioritization System - 
+1. Task Prioritization System - prioritizes tasks accordingly based on the difficulty and the duration of each task listed.
+2. Reward System - The system awards the user with XP and Coins for each task/quest completed by the user.
+3. Shop System - A shop system allows the user to spend their hard earned virtual currency to give themselves a snack or a weekend off of academic activities.
+4. Budget Management System - Allows the user to manage their budget and plan accordingly on where they will spend their real money.
+5. 
+
+AI Disclosure Content:
+1. Database Connection
+2. Installed another environment for Database
+3. Debug Codes
+4. Login
+5. Streamlit Import

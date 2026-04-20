@@ -1,10 +1,46 @@
 import json
+import base64
 import hashlib
+import hmac
+import os
 import secrets
 from datetime import datetime, timedelta
 from pathlib import Path
 
 SESSIONS_DIR = Path(__file__).resolve().parent / "db" / "sessions"
+SESSION_TOKEN_SECRET = os.getenv("SAS_SESSION_TOKEN_SECRET", "sas-local-dev-secret")
+
+
+def create_public_session_token(session_id):
+    """Create a signed opaque token for URL use without exposing raw session ID."""
+    if not session_id:
+        return None
+
+    payload = session_id.encode("utf-8")
+    signature = hmac.new(SESSION_TOKEN_SECRET.encode("utf-8"), payload, hashlib.sha256).digest()[:16]
+    token_bytes = payload + b"." + signature
+    return base64.urlsafe_b64encode(token_bytes).decode("utf-8").rstrip("=")
+
+
+def parse_public_session_token(token):
+    """Validate and decode URL token back to session ID."""
+    if not token:
+        return None
+
+    try:
+        padded = token + "=" * (-len(token) % 4)
+        token_bytes = base64.urlsafe_b64decode(padded.encode("utf-8"))
+        payload, signature = token_bytes.rsplit(b".", 1)
+        expected = hmac.new(SESSION_TOKEN_SECRET.encode("utf-8"), payload, hashlib.sha256).digest()[:16]
+        if not hmac.compare_digest(signature, expected):
+            return None
+
+        session_id = payload.decode("utf-8")
+        if len(session_id) != 32:
+            return None
+        return session_id
+    except Exception:
+        return None
 
 def create_session(username):
     """Create a new session for a user and return session ID"""
