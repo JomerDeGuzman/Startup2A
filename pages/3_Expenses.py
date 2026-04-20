@@ -80,7 +80,7 @@ else:
                 st.markdown(f"**{i}. {expense['label']}**")
             
             with col_amount:
-                st.markdown(f"<p style='font-size: 1.2rem; font-weight: bold; color: #e74c3c;'>{amount:.2f}</p>", unsafe_allow_html=True)
+                st.markdown(f"<p style='font-size: 1.2rem; font-weight: bold; color: #e74c3c;'>₱{amount:.2f}</p>", unsafe_allow_html=True)
 
             with col_actions:
                 if st.button("Remove", key=f"expense_{expense['id']}", use_container_width=True):
