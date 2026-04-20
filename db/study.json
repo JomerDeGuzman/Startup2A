@@ -1,12 +1,12 @@
 {
-    "student_name": "Naven",
-    "daily_budget": 0.0,
+    "student_name": "Student",
+    "daily_budget": 250.0,
     "mood": "Okay",
     "tomorrow_needs": "",
     "tasks": [],
     "expenses": [],
     "level": 1,
     "coins": 0,
-    "last_updated": "2026-04-20T14:29:22",
+    "last_updated": "2026-04-20T14:53:07",
     "tomorrow_tasks": []
 }
