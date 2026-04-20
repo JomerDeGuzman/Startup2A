@@ -5,16 +5,32 @@ def make_id():
 
 def task_reward(priority):
     if priority == "High":
-        return "8"
+        return 8
     if priority == "Medium":
-        return "5"
-    return "2"
+        return 5
+    return 2
+
+
+def add_history_entry(data, category, action, title="", amount=None, **details):
+    entry = {
+        "id": make_id(),
+        "timestamp": datetime.now().isoformat(timespec="seconds"),
+        "category": category,
+        "action": action,
+    }
+    if title:
+        entry["title"] = title
+    if amount is not None:
+        entry["amount"] = float(amount)
+    entry.update(details)
+    data.setdefault("history", []).insert(0, entry)
 
 def refresh_level(data):
-    data["level"] = max(1, (int(data["coins"] // 50) + 1))
+    coins = int(data.get("coins", 0) or 0)
+    data["level"] = max(1, coins // 50 + 1)
 
 def spent_total(data):
-    return sum(float(item.get("amount", 0)) for item in data["expenses"])
+    return sum(float(item.get("amount", 0) or 0) for item in data.get("expenses", []))
 
 def pending_tasks(data):
     return [task for task in data["tasks"] if not task.get("done")]
@@ -73,3 +89,5 @@ def today_plan(data):
     
     if str(data.get("tomorrow_needs", "")).strip():
         plan.append(f"Don't forget to check your quests: {data['tomorrow_needs'].strip()}")
+
+    return plan

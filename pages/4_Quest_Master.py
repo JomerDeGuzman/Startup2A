@@ -22,7 +22,7 @@ if "session_id" in query_params:
 
 # Check if user is logged in
 if "logged_in" not in st.session_state or not st.session_state.logged_in:
-    st.switch_page("Login.py")
+    st.switch_page("login.py")
     st.stop()
 
 # Once logged in, ensure URL always has session_id for persistence across reloads
@@ -116,7 +116,8 @@ st.markdown(
 )
 
 
-data = load_data()
+username = st.session_state.get("username")
+data = load_data(username)
 render_sidebar(data, active_page="Quest Master")
 pending = pending_tasks(data)
 
@@ -310,7 +311,7 @@ for idx, reward in enumerate(rewards):
             use_container_width=True,
         ):
             data["coins"] -= reward["cost"]
-            save_data(data)
+            save_data(data, username)
             st.success(f" Congratulations! You redeemed: {reward['name']}")
             st.balloons()
             st.rerun()

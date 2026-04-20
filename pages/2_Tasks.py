@@ -1,6 +1,6 @@
 import streamlit as st
 
-from logic import make_id, refresh_level, task_reward
+from logic import add_history_entry, make_id, refresh_level, task_reward
 from store import load_data, save_data
 from ui import render_sidebar
 from session_manager import validate_session, cleanup_expired_sessions
@@ -22,7 +22,7 @@ if "session_id" in query_params:
 
 # Check if user is logged in
 if "logged_in" not in st.session_state or not st.session_state.logged_in:
-    st.switch_page("Login.py")
+    st.switch_page("login.py")
     st.stop()
 
 # Once logged in, ensure URL always has session_id for persistence across reloads
@@ -54,9 +54,11 @@ with st.form("task_form", border=True):
 
 if add_task:
     if title.strip():
+        reward = task_reward(priority)
+        task_id = make_id()
         data["tasks"].append(
             {
-                "id": make_id(),
+                "id": task_id,
                 "title": title.strip(),
                 "description": description.strip(),
                 "deadline": deadline.strftime("%Y-%m-%d") if deadline else "",
@@ -64,6 +66,7 @@ if add_task:
                 "done": False,
             }
         )
+        add_history_entry(data, "task", "add", title=title.strip(), task_id=task_id, priority=priority, reward=reward)
         save_data(data, username)
         st.success(" Quest added! Complete it to earn coins!")
         st.rerun()
@@ -118,7 +121,7 @@ else:
             priority = task['priority']
             priority_color = {"High": "#e74c3c", "Medium": "#f39c12", "Low": "#27ae60"}[priority]
             priority_emoji = {"High": "🔴", "Medium": "🟡", "Low": "🟢"}[priority]
-            reward = task_reward(priority)
+            reward = int(task_reward(priority))
             
             with st.container(border=True):
                 col_title, col_reward = st.columns([3, 1])
@@ -142,12 +145,14 @@ else:
                         task["done"] = True
                         data["coins"] += reward
                         refresh_level(data)
+                        add_history_entry(data, "task", "complete", title=task["title"], task_id=task["id"], priority=priority, reward=reward)
                         save_data(data, username)
-                        st.success(f" Quest complete! +{reward} coins!")
+                        st.success(f" Quest complete! + {reward} coins!")
                         st.rerun()
                 
                 with col2:
                     if st.button("Delete", key=f"delete_{task['id']}", use_container_width=True):
+                        add_history_entry(data, "task", "delete", title=task["title"], task_id=task["id"], priority=priority, reward=reward)
                         data["tasks"] = [item for item in data["tasks"] if item["id"] != task["id"]]
                         save_data(data, username)
                         st.rerun()
@@ -158,7 +163,7 @@ else:
         for task in completed_tasks:
             priority = task['priority']
             priority_color = {"High": "#e74c3c", "Medium": "#f39c12", "Low": "#27ae60"}[priority]
-            reward = task_reward(priority)
+            reward = int(task_reward(priority))
             
             with st.container(border=True):
                 col_title, col_reward = st.columns([3, 1])
@@ -182,11 +187,27 @@ else:
                         task["done"] = False
                         data["coins"] -= reward
                         refresh_level(data)
+                        add_history_entry(data, "task", "reopen", title=task["title"], task_id=task["id"], priority=priority, reward=reward)
                         save_data(data, username)
                         st.rerun()
                 
                 with col2:
                     if st.button(" Delete", key=f"delete_done_{task['id']}", use_container_width=True):
+                        add_history_entry(data, "task", "delete", title=task["title"], task_id=task["id"], priority=priority, reward=reward)
                         data["tasks"] = [item for item in data["tasks"] if item["id"] != task["id"]]
                         save_data(data, username)
                         st.rerun()
+
+st.divider()
+
+st.markdown("### Task History")
+task_history = [item for item in data.get("history", []) if item.get("category") == "task"]
+if not task_history:
+    st.info("No task history yet.")
+else:
+    for entry in task_history[:10]:
+        title_text = entry.get("title", "Task")
+        action = entry.get("action", "updated").replace("_", " ").title()
+        reward = entry.get("reward")
+        reward_text = f" - {int(reward)} coins" if reward is not None else ""
+        st.write(f"{entry.get('timestamp', '')} - {action}: {title_text}{reward_text}")
