@@ -11,7 +11,7 @@ if "logged_in" not in st.session_state or not st.session_state.logged_in:
     st.error("Please login first!")
     st.stop()
 
-
+st.header("Hello student, survive this semester!")
 data = load_data()
 render_sidebar(data,active_page='Home')
 pending = pending_tasks(data)
