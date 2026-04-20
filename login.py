@@ -7,6 +7,7 @@
 import streamlit as st
 from database import DatabaseConnection
 from db_config import DB_CONFIG
+from session_manager import create_session, validate_session, cleanup_expired_sessions
 
 st.set_page_config(page_title='Survive-A-Semester', layout='centered')
 
@@ -21,11 +22,30 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
+# Check for existing session in URL params
+cleanup_expired_sessions()
+query_params = st.query_params
+if "session_id" in query_params:
+    session_id = query_params["session_id"]
+    username = validate_session(session_id)
+    if username:
+        st.session_state.logged_in = True
+        st.session_state.username = username
+        st.session_state.session_id = session_id
+        st.switch_page("pages/0_Dashboard.py")
+    else:
+        # Session expired, clear and continue to login
+        if "session_id" in st.query_params:
+            del st.query_params["session_id"]
+
 # Initialize session state
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 if "username" not in st.session_state:
     st.session_state.username = None
+if "session_id" not in st.session_state:
+    st.session_state.session_id = None
 if "show_register" not in st.session_state:
     st.session_state.show_register = False
 
@@ -88,10 +108,19 @@ def login_page():
     if st.button("Login", use_container_width=True):
         if username and password:
             if check_login(username, password):
+                # Create persistent session
+                session_id = create_session(username)
                 st.session_state.logged_in = True
                 st.session_state.username = username
+                st.session_state.session_id = session_id
                 st.success("✅ Logged in successfully!")
-                st.switch_page("pages/0_Dashboard.py")
+                # Redirect with session_id in URL using JavaScript
+                st.markdown(f"""
+                    <script>
+                        window.location.href = "?session_id={session_id}";
+                    </script>
+                """, unsafe_allow_html=True)
+                st.stop()
             else:
                 st.error("❌ Invalid credentials")
         else:

@@ -3,14 +3,33 @@ import streamlit as st
 from logic import pending_tasks
 from store import load_data, save_data
 from ui import render_sidebar
+from session_manager import validate_session, cleanup_expired_sessions
 
+st.set_page_config(page_title="Quest Master - Student Quest", layout="wide")
+
+# Cleanup expired sessions
+cleanup_expired_sessions()
+
+# Restore session from URL params if needed
+query_params = st.query_params
+if "session_id" in query_params:
+    session_id = query_params["session_id"]
+    username = validate_session(session_id)
+    if username:
+        st.session_state.logged_in = True
+        st.session_state.username = username
+        st.session_state.session_id = session_id
 
 # Check if user is logged in
 if "logged_in" not in st.session_state or not st.session_state.logged_in:
     st.switch_page("Login.py")
     st.stop()
 
-st.set_page_config(page_title="Quest Master - Student Quest", layout="wide")
+# Once logged in, ensure URL always has session_id for persistence across reloads
+if st.session_state.get("session_id"):
+    session_id = st.session_state.session_id
+    if "session_id" not in query_params:
+        st.query_params["session_id"] = session_id
 
 st.markdown(
     """
