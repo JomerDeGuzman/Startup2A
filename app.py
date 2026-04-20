@@ -1,8 +1,8 @@
 import streamlit as st
 
-from streamlit_logic import pending_tasks, spend_total, today_plan
-from streamlit_story import load_data
-from streamlit_ui import render_sidebar
+from logic import pending_tasks, spend_total, today_plan
+from store import load_data
+from ui import render_sidebar
 
 st.set_page_config(page_title='Student Quest', layout='wide')
 
@@ -66,23 +66,30 @@ st.markdown(
         with info_col1:
             st.markdown(
             <div class="home-info-card" style="background-color: var(--home-card-bg); color: var(--home-card-text); padding: 20px; border-radius 10px; border-left: 4px solid var(--home-card-border); color: var(--home-card-text);">
-            <h3 style color: var(--home-profile-title); margin-top: 0;">Profile</h3>
-            p style=color: var(--home-note-text); margin-bottom: 0;">Name: {data['student_name']}</p>
-            p style="margin-bottom: 0;">Daily Budget: ${data['daily_budget']}</p>
+            <h3 style="color: var(--home-profile-title); margin-top: 0;">Profile</h3>
+            <p style="color: var(--home-card-text);"><strong>{data['student_name']}</strong></p>
+            <p style="color: var(--home-card-text);">Mood: <span style="font-weight: bold; color: var(--home-mood-text);">{data['mood']}</span></p>
             </div>
             )
 
         with info_col2:
-            st.markdown(
-        
+            st.markdown(f"""
+            <div class="home-info-card" style="background-color: var(--home-card-bg); color: var(--home-card-text); padding: 20px; border-radius 10px; border-left: 4px solid var(--home-quest-border); color: var(--home-card-text);">
+            <h3 style="color: var(--home-quest-title); margin-top: 0;">Today's Plan</h3>
+            <p style="color: var(==home-card-text);">Coins : <strong style
+            </div>
 
+            """) 
         with info_col3:
-            st.markdown(
+            st.markdown(f"""
+            <div class="home-info-card" style="background-color: var(--home-card-bg); color: var(--home-card-text); padding: 20px; border-radius 10px; border-left: 4px solid var(--home-quest-border); color: var(--home-card-text);">
+        
+    
+            </div>
             
-            
-        with in
-            
-            
-            
-            
-            """)
+
+              
+                        """)    
+          """)        
+                                        
+                                         
