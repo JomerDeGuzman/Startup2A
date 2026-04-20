@@ -42,7 +42,7 @@ def render_sidebar(data,active_page=None):
     st.sidebar.metric("Daily Budget", f"{budget:.2f}")
 
     if budget > 0:
-        st.sidebar.progress(min(1.0, spent / budget), text=f"{left:.2f} left of {budget:.2f}")
+        st.sidebar.progress(min(1.0, spent / budget), text=f"Budget Used: {int((spent / budget) * 100)}%")
 
     st.sidebar.markdown("""Navigation""")
     st.sidebar.page_link("pages/0_Dashboard.py", label="Home")
