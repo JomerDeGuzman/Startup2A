@@ -13,6 +13,8 @@ st.set_page_config(page_title='Survive-A-Semester', layout='centered')
 # Initialize session state
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
+if "username" not in st.session_state:
+    st.session_state.username = None
 if "show_register" not in st.session_state:
     st.session_state.show_register = False
 
@@ -76,8 +78,9 @@ def login_page():
         if username and password:
             if check_login(username, password):
                 st.session_state.logged_in = True
+                st.session_state.username = username
                 st.success("✅ Logged in successfully!")
-                st.switch_page("pages/home.py")
+                st.switch_page("pages/1_home.py")
             else:
                 st.error("❌ Invalid credentials")
         else:
@@ -92,33 +95,6 @@ def login_page():
     
     st.markdown("---")
     
-    # Help section
-    with st.expander("❓ Setup Instructions", expanded=False):
-        st.markdown("""
-        ### First Time Setup?
-        
-        **Step 1:** Run diagnostics
-        ```bash
-        python diagnose_db.py
-        ```
-        
-        **Step 2:** Initialize database
-        ```bash
-        python setup_database.py
-        ```
-        
-        **Step 3:** Try login again with:
-        - Username: `admin`
-        - Password: `password`
-        
-        ### Having issues?
-        1. Make sure MySQL is running
-        2. Edit `db_config.py` with your MySQL credentials
-        3. Run `diagnose_db.py` to check connection
-        """)
-    
-    st.markdown("---")
-    st.caption("**Database:** sas_db | **Default:** admin / password")
 
 def register_page():
     st.title("Survive-A-Semester")
@@ -163,7 +139,7 @@ def register_page():
 
 if __name__ == "__main__":
     if st.session_state.logged_in:
-        st.switch_page("pages/home.py")
+        st.switch_page("pages/1_home.py")
     elif st.session_state.show_register:
         register_page()
     else:

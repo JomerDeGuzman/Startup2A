@@ -4,7 +4,11 @@ from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-Data_FILE = ROOT / "db" / "study.json"
+DB_DIR = ROOT / "db"
+
+def _get_user_data_file(username):
+    """Get the user-specific data file path"""
+    return DB_DIR / username / "study.json"
 
 def default_data():
     return {
@@ -56,29 +60,42 @@ def _normalize_data(data):
 
     return normalized
 
-def load_data():
-    if not Data_FILE.exists():
+def load_data(username=None):
+    """Load user data. If username is None, uses default shared data file for backwards compatibility."""
+    if username is None:
+        # Backwards compatibility: use old shared data file
+        data_file = DB_DIR / "study.json"
+    else:
+        data_file = _get_user_data_file(username)
+    
+    if not data_file.exists():
         data = default_data()
-        Data_FILE.parent.mkdir(parents=True, exist_ok=True)
-        Data_FILE.write_text(json.dumps(data, indent=4), encoding="utf-8")
+        data_file.parent.mkdir(parents=True, exist_ok=True)
+        data_file.write_text(json.dumps(data, indent=4), encoding="utf-8")
         return data
     
     try:
-        data = json.loads(Data_FILE.read_text(encoding="utf-8"))
+        data = json.loads(data_file.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
         data = default_data()
-        Data_FILE.write_text(json.dumps(data, indent=4), encoding="utf-8")
+        data_file.write_text(json.dumps(data, indent=4), encoding="utf-8")
         return data
 
     normalized = _normalize_data(data)
     # Persist normalized values so future runs stay consistent.
-    Data_FILE.write_text(json.dumps(normalized, indent=4), encoding="utf-8")
+    data_file.write_text(json.dumps(normalized, indent=4), encoding="utf-8")
     return normalized
 
 
-def save_data(data):
-    Data_FILE.parent.mkdir(parents=True, exist_ok=True)
+def save_data(data, username=None):
+    """Save user data. If username is None, uses default shared data file for backwards compatibility."""
+    if username is None:
+        # Backwards compatibility: use old shared data file
+        data_file = DB_DIR / "study.json"
+    else:
+        data_file = _get_user_data_file(username)
+    
+    data_file.parent.mkdir(parents=True, exist_ok=True)
     normalized = _normalize_data(data)
     normalized["last_updated"] = datetime.now().isoformat(timespec="seconds")
-    Data_FILE.write_text(json.dumps(normalized, indent=4), encoding="utf-8")
-        
+    data_file.write_text(json.dumps(normalized, indent=4), encoding="utf-8")

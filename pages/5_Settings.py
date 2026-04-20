@@ -5,6 +5,13 @@ from ui import render_sidebar
 
 st.set_page_config(page_title='Settings', layout='wide')
 
+# Check if user is logged in
+if "logged_in" not in st.session_state or not st.session_state.logged_in:
+    st.switch_page("Login.py")
+    st.stop()
+
+username = st.session_state.get("username")
+
 st.markdown("""
         <style>
          :root {
@@ -44,6 +51,6 @@ st.write("")
 
 
 if st.button("Reset Data", use_container_width=False):
-    save_data(default_data())
+    save_data(default_data(), username)
     st.success("Data reset successfully!")
     st.rerun()

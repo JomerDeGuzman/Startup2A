@@ -1,5 +1,5 @@
 {
-    "student_name": "Naven",
+    "student_name": "",
     "daily_budget": 0.0,
     "mood": "Okay",
     "tomorrow_needs": "",
@@ -7,6 +7,5 @@
     "expenses": [],
     "level": 1,
     "coins": 0,
-    "last_updated": "2026-04-20T14:29:22",
-    "tomorrow_tasks": []
+    "last_updated": ""
 }

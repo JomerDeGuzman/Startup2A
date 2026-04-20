@@ -8,7 +8,13 @@ st.set_page_config(page_title='Expenses - Student Quest', layout='wide')
 
 st.title("Expenses")
 
-data = load_data()
+# Check if user is logged in
+if "logged_in" not in st.session_state or not st.session_state.logged_in:
+    st.switch_page("Login.py")
+    st.stop()
+
+username = st.session_state.get("username")
+data = load_data(username)
 render_sidebar(data, active_page='Expenses')
 
 with st.form("expenses_form", border=True):

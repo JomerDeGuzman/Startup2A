@@ -8,11 +8,12 @@ st.set_page_config(page_title='Student Quest', layout='wide')
 
 # Check if user is logged in
 if "logged_in" not in st.session_state or not st.session_state.logged_in:
-    st.error("Please login first!")
+    st.switch_page("Login.py")
     st.stop()
 
 st.header("Hello student, survive this semester!")
-data = load_data()
+username = st.session_state.get("username")
+data = load_data(username)
 render_sidebar(data,active_page='Home')
 pending = pending_tasks(data)
 spending = spent_total(data)

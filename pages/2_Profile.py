@@ -7,7 +7,13 @@ st.set_page_config(page_title='Profile - Student Quest', layout='wide')
 
 st.title("Profile")
 
-data = load_data()
+# Check if user is logged in
+if "logged_in" not in st.session_state or not st.session_state.logged_in:
+    st.switch_page("Login.py")
+    st.stop()
+
+username = st.session_state.get("username")
+data = load_data(username)
 render_sidebar(data, active_page='Profile')
 
 with st.form("profile_form", border=True):
@@ -36,7 +42,7 @@ with st.form("profile_form", border=True):
         data["daily_budget"] = float(daily_budget)
         data["mood"] = mood
         data["tomorrow_needs"] = tomorrow_needs.strip()
-        save_data(data)
+        save_data(data, username)
         st.success("Profile saved successfully!")
         st.balloons()
 

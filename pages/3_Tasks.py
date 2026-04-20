@@ -9,7 +9,13 @@ st.set_page_config(page_title="Tasks - Student Survival Planner", layout="wide")
 
 st.title(" Tasks & Quests")
 
-data = load_data()
+# Check if user is logged in
+if "logged_in" not in st.session_state or not st.session_state.logged_in:
+    st.switch_page("Login.py")
+    st.stop()
+
+username = st.session_state.get("username")
+data = load_data(username)
 render_sidebar(data, active_page="Tasks")
 
 # Add task form
@@ -39,7 +45,7 @@ if add_task:
                 "done": False,
             }
         )
-        save_data(data)
+        save_data(data, username)
         st.success(" Quest added! Complete it to earn coins!")
         st.rerun()
     else:
@@ -117,14 +123,14 @@ else:
                         task["done"] = True
                         data["coins"] += reward
                         refresh_level(data)
-                        save_data(data)
+                        save_data(data, username)
                         st.success(f" Quest complete! +{reward} coins!")
                         st.rerun()
                 
                 with col2:
                     if st.button("Delete", key=f"delete_{task['id']}", use_container_width=True):
                         data["tasks"] = [item for item in data["tasks"] if item["id"] != task["id"]]
-                        save_data(data)
+                        save_data(data, username)
                         st.rerun()
     
     # Display completed tasks
@@ -157,11 +163,11 @@ else:
                         task["done"] = False
                         data["coins"] -= reward
                         refresh_level(data)
-                        save_data(data)
+                        save_data(data, username)
                         st.rerun()
                 
                 with col2:
                     if st.button(" Delete", key=f"delete_done_{task['id']}", use_container_width=True):
                         data["tasks"] = [item for item in data["tasks"] if item["id"] != task["id"]]
-                        save_data(data)
+                        save_data(data, username)
                         st.rerun()
