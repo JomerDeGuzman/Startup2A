@@ -16,7 +16,7 @@ Features:
 
 AI Disclosure Content:
 1. Database Connection
-2. Installed another environment for Database
+2. Installed another environment for Database the terminal wont allow us to manually install
 3. Debug Codes
-4. Login
-5. Streamlit Import
+4. Login Error
+5. Streamlit Import error same problem to Install
