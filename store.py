@@ -18,6 +18,7 @@ def default_data():
         "tomorrow_needs": "",
         "tasks": [],
         "expenses": [],
+        "history": [],
         "level": 1,
         "coins": 0,
         "last_updated": ""
@@ -42,6 +43,8 @@ def _normalize_data(data):
         normalized["tasks"] = []
     if not isinstance(normalized.get("expenses"), list):
         normalized["expenses"] = []
+    if not isinstance(normalized.get("history"), list):
+        normalized["history"] = []
 
     try:
         normalized["daily_budget"] = float(normalized.get("daily_budget", 0) or 0)

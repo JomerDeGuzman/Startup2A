@@ -6,7 +6,7 @@ st.set_page_config(page_title='Settings', layout='wide')
 
 # Check if user is logged in
 if "logged_in" not in st.session_state or not st.session_state.logged_in:
-    st.switch_page("Login.py")
+    st.switch_page("login.py")
     st.stop()
 
 username = st.session_state.get("username")

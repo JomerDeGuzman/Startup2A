@@ -8,7 +8,7 @@ st.set_page_config(page_title='Student Quest', layout='wide')
 
 # Check if user is logged in
 if "logged_in" not in st.session_state or not st.session_state.logged_in:
-    st.switch_page("Login.py")
+    st.switch_page("login.py")
     st.stop()
 
 st.header("Hello student, survive this semester!")

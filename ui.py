@@ -56,11 +56,9 @@ def render_sidebar(data=None, active_page=None, show_sidebar=True):
     st.sidebar.page_link("pages/4_Quest_Master.py", label="Quests")
     st.sidebar.page_link("pages/5_Settings.py", label="Settings")
     
-    st.sidebar.markdown(""" Today""")
-    st.sidebar.markdown(f"""Active page: {current_page}""")
 
     if tomorrow_needs:
-        st.sidebar.write({tomorrow_needs})
+        st.sidebar.write(f"Tomorrow's Needs: {tomorrow_needs}")
     else:
         st.sidebar.write("No specific needs for tomorrow yet.")
 

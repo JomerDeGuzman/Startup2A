@@ -1,12 +1,20 @@
 {
-    "student_name": "Student",
-    "daily_budget": 250.0,
-    "mood": "Okay",
-    "tomorrow_needs": "",
-    "tasks": [],
+    "student_name": "Brah Brah",
+    "daily_budget": 150.0,
+    "mood": "Stressed",
+    "tomorrow_needs": "hatch 2 secrets",
+    "tasks": [
+        {
+            "id": "20260420152945521827",
+            "title": "lulub",
+            "description": "3 times a week",
+            "deadline": "",
+            "priority": "Medium",
+            "done": false
+        }
+    ],
     "expenses": [],
     "level": 1,
     "coins": 0,
-    "last_updated": "2026-04-20T14:53:07",
-    "tomorrow_tasks": []
+    "last_updated": "2026-04-20T15:45:22"
 }

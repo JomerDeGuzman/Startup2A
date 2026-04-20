@@ -1,6 +1,6 @@
 import streamlit as st
 
-from logic import spent_total
+from logic import add_history_entry, make_id
 from store import load_data, save_data
 from ui import render_sidebar
 
@@ -10,7 +10,7 @@ st.title("Expenses")
 
 # Check if user is logged in
 if "logged_in" not in st.session_state or not st.session_state.logged_in:
-    st.switch_page("Login.py")
+    st.switch_page("login.py")
     st.stop()
 
 username = st.session_state.get("username")
@@ -30,21 +30,18 @@ with st.form("expenses_form", border=True):
 
 if add_expense:
     if label.strip() and amount > 0:
-        data["expenses"].append
-    (
-        {
-            "id": str(len(data["expenses"]) + 1) + label.strip(),
+        expense = {
+            "id": make_id(),
             "label": label.strip(),
-            "amount": amount,
-            
+            "amount": float(amount),
         }
-    )
-
-    save_data(data)
-    st.success(f"Expense added! ${amount:.2f}")
-    st.rerun()
-else:
-    st.error("Please enter a valid description and amount greater than 0.")
+        data["expenses"].append(expense)
+        add_history_entry(data, "expense", "add", title=expense["label"], amount=expense["amount"], expense_id=expense["id"])
+        save_data(data, username)
+        st.success(f"Expense added! ${amount:.2f}")
+        st.rerun()
+    else:
+        st.error("Please enter a valid description and amount greater than 0.")
 
 st.divider()
 
@@ -63,14 +60,28 @@ else:
                 st.markdown(f"**{i}. {expense['label']}**")
             
             with col_amount:
-                st.markdown(f"<p style='font-size: 1.2rem; font-weight: bold; color; #e74c3c;'>${amount:.2f}</p>", unsafe_allow_html=True)
+                st.markdown(f"<p style='font-size: 1.2rem; font-weight: bold; color: #e74c3c;'>${amount:.2f}</p>", unsafe_allow_html=True)
 
             with col_actions:
                 if st.button("Remove", key=f"expense_{expense['id']}", use_container_width=True):
+                    add_history_entry(data, "expense", "remove", title=expense["label"], amount=amount, expense_id=expense["id"])
                     data["expenses"] = [item for item in data["expenses"] if item["id"] != expense["id"]]
-                    save_data(data)
+                    save_data(data, username)
                     st.success("Expense removed!")
                     st.rerun()
+
+st.divider()
+
+st.markdown("### Expense History")
+expense_history = [item for item in data.get("history", []) if item.get("category") == "expense"]
+if not expense_history:
+    st.info("No expense history yet.")
+else:
+    for entry in expense_history[:10]:
+        title_text = entry.get("title", "Expense")
+        action = entry.get("action", "updated").replace("_", " ").title()
+        amount_text = f" - ${float(entry.get('amount', 0)):.2f}" if entry.get("amount") is not None else ""
+        st.write(f"{entry.get('timestamp', '')} - {action}: {title_text}{amount_text}")
 
 
 

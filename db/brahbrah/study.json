@@ -1,8 +1,8 @@
 {
-    "student_name": "",
-    "daily_budget": 0.0,
-    "mood": "Okay",
-    "tomorrow_needs": "",
+    "student_name": "Brah Brah",
+    "daily_budget": 150.0,
+    "mood": "Stressed",
+    "tomorrow_needs": "hatch 2 secrets",
     "tasks": [
         {
             "id": "20260420152945521827",
@@ -14,7 +14,8 @@
         }
     ],
     "expenses": [],
+    "history": [],
     "level": 1,
     "coins": 0,
-    "last_updated": "2026-04-20T15:29:45"
+    "last_updated": "2026-04-20T15:44:47"
 }
