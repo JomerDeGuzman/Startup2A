@@ -1,0 +1,20 @@
+{
+    "student_name": "",
+    "daily_budget": 0.0,
+    "mood": "Okay",
+    "tomorrow_needs": "",
+    "tasks": [
+        {
+            "id": "20260420152945521827",
+            "title": "lulub",
+            "description": "3 times a week",
+            "deadline": "",
+            "priority": "Medium",
+            "done": false
+        }
+    ],
+    "expenses": [],
+    "level": 1,
+    "coins": 0,
+    "last_updated": "2026-04-20T15:29:45"
+}
