@@ -24,4 +24,20 @@ with st.form("expenses_form", border=True):
 
 if add_expense:
     if label.strip() and amount > 0:
-        data["expenses"].append({"label": label.strip(), "amount": float(amount)})
+        data["expenses"].append
+    (
+        {
+            "id": str(len(data["expenses"]) + 1) + label.strip(),
+            "label": label.strip(),
+            "amount": amount,
+            
+        }
+    )
+
+    save_data(data)
+    st.success(f"Expense added! ${amount:.2f}")
+    st.rerun()
+
+
+
+        
