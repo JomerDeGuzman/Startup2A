@@ -183,12 +183,12 @@ else:
                 
                 col1, col2 = st.columns(2)
                 with col1:
-                    if st.button("↩ Mark Pending", key=f"pending_{task['id']}", use_container_width=True):
+                    if st.button("↩ Retake Quest", key=f"pending_{task['id']}", use_container_width=True):
                         task["done"] = False
-                        data["coins"] -= reward
                         refresh_level(data)
                         add_history_entry(data, "task", "reopen", title=task["title"], task_id=task["id"], priority=priority, reward=reward)
                         save_data(data, username)
+                        st.success(f"Quest reset. Complete it again to earn {reward} coins!")
                         st.rerun()
                 
                 with col2:

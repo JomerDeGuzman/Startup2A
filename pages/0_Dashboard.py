@@ -31,9 +31,10 @@ if st.session_state.get("session_id"):
     if "session_id" not in query_params:
         st.query_params["session_id"] = session_id
 
-st.header("Hello student, survive this semester!")
 username = st.session_state.get("username")
 data = load_data(username)
+display_name = str(data.get("student_name", "")).strip() or str(username or "Student")
+st.header(f"Hello {display_name}, survive this semester!")
 render_sidebar(data,active_page='Home')
 pending = pending_tasks(data)
 spending = spent_total(data)
@@ -90,9 +91,9 @@ with col1:
 with col2:
     col2.metric("Completed Tasks", done_count, delta= "done")
 with col3:
-    col3.metric("Spend Today", f"{spending:.2f}", delta="none")
+    col3.metric("Spend Today", f"₱{spending:.2f}", delta="none")
 with col4:
-    col4.metric("Budget Left", f"{left:.2f}", delta=f"{budget_percent}% used")
+    col4.metric("Budget Left", f"₱{left:.2f}", delta=f"{budget_percent}% used")
 
 st.divider()
 
