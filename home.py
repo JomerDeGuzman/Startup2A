@@ -1,6 +1,6 @@
 import streamlit as st
 
-from logic import pending_tasks, spend_total, today_plan
+from logic import pending_tasks, spent_total, today_plan
 from store import load_data
 from ui import render_sidebar
 
@@ -10,10 +10,11 @@ st.set_page_config(page_title='Student Quest', layout='wide')
 data = load_data()
 render_sidebar(data,active_page='Home')
 pending = pending_tasks(data)
-spending = spend_total(data)
-left = float(data['daily_budget']) - spending
+spending = spent_total(data)
+budget = float(data.get('daily_budget', 0) or 0)
+left = budget - spending
 done_count = len(data['tasks']) - len(pending)
-budget_percent = min(100, int((spending / float(data['daily_budget'])) * 100)) if data['daily_budget'] > 0 else 0
+budget_percent = min(100, int((spending / budget) * 100)) if budget > 0 else 0
 
 st.markdown(
     """
@@ -54,9 +55,9 @@ with col1:
 with col2:
     col2.metric("Completed Tasks", done_count, delta= "done")
 with col3:
-    col3.metric("Spend Today", f"${spending:.2f}", delta="none")
+    col3.metric("Spend Today", f"{spending:.2f}", delta="none")
 with col4:
-    col4.metric("Budget Left", f"${left:.2f}", delta=f"{budget_percent}% used")
+    col4.metric("Budget Left", f"{left:.2f}", delta=f"{budget_percent}% used")
 
 st.divider()
 
@@ -81,7 +82,7 @@ with info_col2:
     """)
 
 with info_col3:
-    tomorrow_text = data["tomorrow_needs"] or "No preparations notes yet."
+    tomorrow_text = data.get("tomorrow_needs") or "No preparations notes yet."
     st.markdown(f"""
     <div class="home-info-card" style="background-color: var(--home-card-bg); color: var(--home-card-text); padding: 20px; border-radius: 10px; border-left: 4px solid var(--home-quest-border); color: var(--home-card-text);">
     <h3 style="color: var(--home-tomorrow-title); margin-top; 0;">Tomorrow's Needs</h3>

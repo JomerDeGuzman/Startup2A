@@ -1,12 +1,12 @@
 {
-    "student_name": [],
-    "daily_budget": [],
-    "mood": [],
-    "tomorrow_tasks": [],
+    "student_name": "",
+    "daily_budget": 0.0,
+    "mood": "Okay",
+    "tomorrow_needs": "",
     "tasks": [],
     "expenses": [],
     "level": 1,
     "coins": 0,
-    "last_updated": []
-
+    "last_updated": "",
+    "tomorrow_tasks": []
 }
