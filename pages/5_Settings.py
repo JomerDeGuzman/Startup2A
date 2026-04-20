@@ -2,7 +2,6 @@ import streamlit as st
 
 from store import default_data, load_data, save_data
 from ui import render_sidebar
-
 st.set_page_config(page_title='Settings', layout='wide')
 
 # Check if user is logged in
@@ -11,6 +10,8 @@ if "logged_in" not in st.session_state or not st.session_state.logged_in:
     st.stop()
 
 username = st.session_state.get("username")
+data = load_data(username)
+render_sidebar(data, active_page='Settings')
 
 st.markdown("""
         <style>

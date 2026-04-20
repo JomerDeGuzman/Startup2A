@@ -10,6 +10,17 @@ from db_config import DB_CONFIG
 
 st.set_page_config(page_title='Survive-A-Semester', layout='centered')
 
+# Hide sidebar completely
+st.markdown(
+    """
+    <style>
+        [data-testid="stSidebar"] {
+            display: none;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 # Initialize session state
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
@@ -80,7 +91,7 @@ def login_page():
                 st.session_state.logged_in = True
                 st.session_state.username = username
                 st.success("✅ Logged in successfully!")
-                st.switch_page("pages/1_home.py")
+                st.switch_page("pages/0_Dashboard.py")
             else:
                 st.error("❌ Invalid credentials")
         else:
@@ -139,7 +150,7 @@ def register_page():
 
 if __name__ == "__main__":
     if st.session_state.logged_in:
-        st.switch_page("pages/1_home.py")
+        st.switch_page("pages/0_Dashboard.py")
     elif st.session_state.show_register:
         register_page()
     else:

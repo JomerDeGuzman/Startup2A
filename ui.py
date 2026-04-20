@@ -1,6 +1,6 @@
 import streamlit as st
 
-def render_sidebar(data,active_page=None):
+def render_sidebar(data=None, active_page=None, show_sidebar=True):
     st.markdown(
         """
     <style>
@@ -10,6 +10,10 @@ def render_sidebar(data,active_page=None):
     </style>
     """,
     unsafe_allow_html=True,)
+    
+    # If show_sidebar is False, don't render any sidebar content
+    if not show_sidebar or data is None:
+        return
 
     current_page = active_page or st.session_state.get("current_page", "Home")
     budget = float(data.get("daily_budget", 0.0) or 0.0)
