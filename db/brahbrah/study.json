@@ -13,9 +13,25 @@
             "done": false
         }
     ],
-    "expenses": [],
-    "history": [],
+    "expenses": [
+        {
+            "id": "20260420155819122386",
+            "label": "itlog",
+            "amount": 20.0
+        }
+    ],
+    "history": [
+        {
+            "id": "20260420155819122432",
+            "timestamp": "2026-04-20T15:58:19",
+            "category": "expense",
+            "action": "add",
+            "title": "itlog",
+            "amount": 20.0,
+            "expense_id": "20260420155819122386"
+        }
+    ],
     "level": 1,
     "coins": 0,
-    "last_updated": "2026-04-20T15:44:47"
+    "last_updated": "2026-04-20T15:58:19"
 }
