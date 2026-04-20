@@ -20,7 +20,7 @@ def render_sidebar(data=None, active_page=None, show_sidebar=True):
     coins = int(data.get("coins", 0) or 0)
     level = int(data.get("level", 1) or 1)
     mood = data.get("mood", "Okay")
-    student_name = data.get("student_name", "Student")
+    student_name = str(data.get("student_name", "")).strip() or str(st.session_state.get("username", "Student"))
     tomorrow_needs = data.get("tomorrow_needs", "")
     pending_tasks = [task for task in data.get("tasks", []) if not task.get("done")]
     spent = sum(float(expense.get("amount", 0) or 0) for expense in data.get("expenses", []))
@@ -28,22 +28,22 @@ def render_sidebar(data=None, active_page=None, show_sidebar=True):
 
     st.sidebar.markdown("""
                         <div style="padding: 0.9rem; border-radius: 0.9rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center; margin-bottom: 0.9rem;">
-                            <div style="font-size: 0.8rem; opacity: 0.9;">Notes</div>
-                            <div style="font-size: 1.15rem; font-weight: 700;">Quest</div>
+                            <div style="font-size: 0.8rem; opacity: 0.9;"></div>
+                            <div style="font-size: 1.15rem; font-weight: 700;">Student Quest </div>
                         </div>
                         """, unsafe_allow_html=True)
 
     st.sidebar.markdown(f"""
-                        <div style="padding: 0.85rem 1rem; border-radius: 0.8rem; border: 1px solid rbga(127, 127, 127, 0.25); margin-bottom: 0.85rem; background rgba(127, 127, 127, 0.06);">
-                            <div stle="font-weight: 700; margin-bottom: 0.25rem; color: var(--text-color);">Hello, <span style="color: #f59e0b;">{student_name or 'Student'}</span>!</div>
-                            <div (style="font-size: 0.9rem; color: var(--text-color);">Mood: <span style="font-weight: bold; color: #ef4444;">{mood}</span></div>
+                        <div style="padding: 0.85rem 1rem; border-radius: 0.8rem; border: 1px solid rgba(127, 127, 127, 0.25); margin-bottom: 0.85rem; background: rgba(127, 127, 127, 0.06);">
+                            <div style="font-weight: 700; margin-bottom: 0.25rem; color: var(--text-color);">Hello, <span style="color: #f59e0b;">{student_name}</span>!</div>
+                            <div style="font-size: 0.9rem; color: var(--text-color);">Mood: <span style="font-weight: bold; color: #ef4444;">{mood}</span></div>
                             <div style="font-size: 0.9rem; color: var(--text-color);">Level: <span style="font-weight: bold; color: #f59e0b;">{level}  Coins: {coins}</span></div>
                         </div>
                         """,unsafe_allow_html=True)
     
 
     st.sidebar.metric("Pending Quests", len(pending_tasks))
-    st.sidebar.metric("Today's Budget", f"{budget:.2f}")
+    st.sidebar.metric("Today's Budget", f"₱{budget:.2f}")
 
     if budget > 0:
         st.sidebar.progress(min(1.0, spent / budget), text=f"Budget Used: {int((spent / budget) * 100)}%")

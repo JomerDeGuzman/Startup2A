@@ -10,12 +10,274 @@
             "description": "3 times a week",
             "deadline": "",
             "priority": "Medium",
-            "done": false
+            "done": true
+        },
+        {
+            "id": "20260420160444055103",
+            "title": "exploit",
+            "description": "",
+            "deadline": "",
+            "priority": "High",
+            "done": true
+        },
+        {
+            "id": "20260420160728821242",
+            "title": "suntukin si felix",
+            "description": "",
+            "deadline": "",
+            "priority": "High",
+            "done": true
         }
     ],
-    "expenses": [],
-    "history": [],
+    "expenses": [
+        {
+            "id": "20260420155819122386",
+            "label": "itlog",
+            "amount": 20.0
+        }
+    ],
+    "history": [
+        {
+            "id": "20260420160944287732",
+            "timestamp": "2026-04-20T16:09:44",
+            "category": "task",
+            "action": "complete",
+            "title": "lulub",
+            "task_id": "20260420152945521827",
+            "priority": "Medium",
+            "reward": 5
+        },
+        {
+            "id": "20260420160943636480",
+            "timestamp": "2026-04-20T16:09:43",
+            "category": "task",
+            "action": "complete",
+            "title": "exploit",
+            "task_id": "20260420160444055103",
+            "priority": "High",
+            "reward": 8
+        },
+        {
+            "id": "20260420160943057221",
+            "timestamp": "2026-04-20T16:09:43",
+            "category": "task",
+            "action": "complete",
+            "title": "suntukin si felix",
+            "task_id": "20260420160728821242",
+            "priority": "High",
+            "reward": 8
+        },
+        {
+            "id": "20260420160941922673",
+            "timestamp": "2026-04-20T16:09:41",
+            "category": "task",
+            "action": "reopen",
+            "title": "suntukin si felix",
+            "task_id": "20260420160728821242",
+            "priority": "High",
+            "reward": 8
+        },
+        {
+            "id": "20260420160940835806",
+            "timestamp": "2026-04-20T16:09:40",
+            "category": "task",
+            "action": "reopen",
+            "title": "lulub",
+            "task_id": "20260420152945521827",
+            "priority": "Medium",
+            "reward": 5
+        },
+        {
+            "id": "20260420160940066805",
+            "timestamp": "2026-04-20T16:09:40",
+            "category": "task",
+            "action": "reopen",
+            "title": "exploit",
+            "task_id": "20260420160444055103",
+            "priority": "High",
+            "reward": 8
+        },
+        {
+            "id": "20260420160939288796",
+            "timestamp": "2026-04-20T16:09:39",
+            "category": "task",
+            "action": "complete",
+            "title": "lulub",
+            "task_id": "20260420152945521827",
+            "priority": "Medium",
+            "reward": 5
+        },
+        {
+            "id": "20260420160938555398",
+            "timestamp": "2026-04-20T16:09:38",
+            "category": "task",
+            "action": "reopen",
+            "title": "lulub",
+            "task_id": "20260420152945521827",
+            "priority": "Medium",
+            "reward": 5
+        },
+        {
+            "id": "20260420160732234189",
+            "timestamp": "2026-04-20T16:07:32",
+            "category": "task",
+            "action": "complete",
+            "title": "suntukin si felix",
+            "task_id": "20260420160728821242",
+            "priority": "High",
+            "reward": 8
+        },
+        {
+            "id": "20260420160728821254",
+            "timestamp": "2026-04-20T16:07:28",
+            "category": "task",
+            "action": "add",
+            "title": "suntukin si felix",
+            "task_id": "20260420160728821242",
+            "priority": "High",
+            "reward": 8
+        },
+        {
+            "id": "20260420160658393332",
+            "timestamp": "2026-04-20T16:06:58",
+            "category": "task",
+            "action": "complete",
+            "title": "lulub",
+            "task_id": "20260420152945521827",
+            "priority": "Medium",
+            "reward": 5
+        },
+        {
+            "id": "20260420160656436935",
+            "timestamp": "2026-04-20T16:06:56",
+            "category": "task",
+            "action": "complete",
+            "title": "exploit",
+            "task_id": "20260420160444055103",
+            "priority": "High",
+            "reward": 8
+        },
+        {
+            "id": "20260420160604272339",
+            "timestamp": "2026-04-20T16:06:04",
+            "category": "task",
+            "action": "reopen",
+            "title": "lulub",
+            "task_id": "20260420152945521827",
+            "priority": "Medium",
+            "reward": 5
+        },
+        {
+            "id": "20260420160603339973",
+            "timestamp": "2026-04-20T16:06:03",
+            "category": "task",
+            "action": "reopen",
+            "title": "exploit",
+            "task_id": "20260420160444055103",
+            "priority": "High",
+            "reward": 8
+        },
+        {
+            "id": "20260420160450787971",
+            "timestamp": "2026-04-20T16:04:50",
+            "category": "task",
+            "action": "complete",
+            "title": "lulub",
+            "task_id": "20260420152945521827",
+            "priority": "Medium",
+            "reward": 5
+        },
+        {
+            "id": "20260420160450234721",
+            "timestamp": "2026-04-20T16:04:50",
+            "category": "task",
+            "action": "reopen",
+            "title": "lulub",
+            "task_id": "20260420152945521827",
+            "priority": "Medium",
+            "reward": 5
+        },
+        {
+            "id": "20260420160449688661",
+            "timestamp": "2026-04-20T16:04:49",
+            "category": "task",
+            "action": "complete",
+            "title": "lulub",
+            "task_id": "20260420152945521827",
+            "priority": "Medium",
+            "reward": 5
+        },
+        {
+            "id": "20260420160449150024",
+            "timestamp": "2026-04-20T16:04:49",
+            "category": "task",
+            "action": "reopen",
+            "title": "lulub",
+            "task_id": "20260420152945521827",
+            "priority": "Medium",
+            "reward": 5
+        },
+        {
+            "id": "20260420160447482631",
+            "timestamp": "2026-04-20T16:04:47",
+            "category": "task",
+            "action": "complete",
+            "title": "lulub",
+            "task_id": "20260420152945521827",
+            "priority": "Medium",
+            "reward": 5
+        },
+        {
+            "id": "20260420160446641571",
+            "timestamp": "2026-04-20T16:04:46",
+            "category": "task",
+            "action": "reopen",
+            "title": "lulub",
+            "task_id": "20260420152945521827",
+            "priority": "Medium",
+            "reward": 5
+        },
+        {
+            "id": "20260420160445737830",
+            "timestamp": "2026-04-20T16:04:45",
+            "category": "task",
+            "action": "complete",
+            "title": "exploit",
+            "task_id": "20260420160444055103",
+            "priority": "High",
+            "reward": 8
+        },
+        {
+            "id": "20260420160444055117",
+            "timestamp": "2026-04-20T16:04:44",
+            "category": "task",
+            "action": "add",
+            "title": "exploit",
+            "task_id": "20260420160444055103",
+            "priority": "High",
+            "reward": 8
+        },
+        {
+            "id": "20260420160426920269",
+            "timestamp": "2026-04-20T16:04:26",
+            "category": "task",
+            "action": "complete",
+            "title": "lulub",
+            "task_id": "20260420152945521827",
+            "priority": "Medium",
+            "reward": 5
+        },
+        {
+            "id": "20260420155819122432",
+            "timestamp": "2026-04-20T15:58:19",
+            "category": "expense",
+            "action": "add",
+            "title": "itlog",
+            "amount": 20.0,
+            "expense_id": "20260420155819122386"
+        }
+    ],
     "level": 1,
-    "coins": 0,
-    "last_updated": "2026-04-20T15:44:47"
+    "coins": 1,
+    "last_updated": "2026-04-20T16:09:44"
 }

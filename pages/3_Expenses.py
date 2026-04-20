@@ -64,7 +64,7 @@ if add_expense:
         data["expenses"].append(expense)
         add_history_entry(data, "expense", "add", title=expense["label"], amount=expense["amount"], expense_id=expense["id"])
         save_data(data, username)
-        st.success(f"Expense added! ${amount:.2f}")
+        st.success(f"Expense added! {amount:.2f}")
         st.rerun()
     else:
         st.error("Please enter a valid description and amount greater than 0.")
@@ -86,7 +86,7 @@ else:
                 st.markdown(f"**{i}. {expense['label']}**")
             
             with col_amount:
-                st.markdown(f"<p style='font-size: 1.2rem; font-weight: bold; color: #e74c3c;'>${amount:.2f}</p>", unsafe_allow_html=True)
+                st.markdown(f"<p style='font-size: 1.2rem; font-weight: bold; color: #e74c3c;'>₱{amount:.2f}</p>", unsafe_allow_html=True)
 
             with col_actions:
                 if st.button("Remove", key=f"expense_{expense['id']}", use_container_width=True):
@@ -106,7 +106,7 @@ else:
     for entry in expense_history[:10]:
         title_text = entry.get("title", "Expense")
         action = entry.get("action", "updated").replace("_", " ").title()
-        amount_text = f" - ${float(entry.get('amount', 0)):.2f}" if entry.get("amount") is not None else ""
+        amount_text = f" - ₱{float(entry.get('amount', 0)):.2f}" if entry.get("amount") is not None else ""
         st.write(f"{entry.get('timestamp', '')} - {action}: {title_text}{amount_text}")
 
 

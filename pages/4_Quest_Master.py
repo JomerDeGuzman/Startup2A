@@ -317,8 +317,27 @@ for idx, reward in enumerate(rewards):
             use_container_width=True,
         ):
             data["coins"] -= reward["cost"]
+            add_history_entry(
+                data,
+                "reward",
+                "redeem",
+                title=reward["name"].strip(),
+                amount=reward["cost"],
+                reward_name=reward["name"].strip(),
+            )
             save_data(data, username)
+            st.toast(f"Redeemed {reward['name'].strip()} for {reward['cost']} coins")
             st.success(f" Congratulations! You redeemed: {reward['name']}")
             st.balloons()
             st.rerun()
 st.divider()
+
+st.markdown("### Reward History")
+reward_history = [item for item in data.get("history", []) if item.get("category") == "reward"]
+if not reward_history:
+    st.info("No reward redemptions yet.")
+else:
+    for entry in reward_history[:10]:
+        title_text = entry.get("title", "Reward")
+        amount_text = f" - {int(entry.get('amount', 0))} coins" if entry.get("amount") is not None else ""
+        st.write(f"{entry.get('timestamp', '')} - Redeemed: {title_text}{amount_text}")
