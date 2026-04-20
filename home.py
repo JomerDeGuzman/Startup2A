@@ -11,13 +11,12 @@ data = load_data()
 render_sidebar(data,active_page='Home')
 pending = pending_tasks(data)
 spending = spent_total(data)
-budget = float(data.get('daily_budget', 0) or 0)
-left = budget - spending
+left = float(data["daily_budget"]) - spending
 done_count = len(data['tasks']) - len(pending)
-budget_percent = min(100, int((spending / budget) * 100)) if budget > 0 else 0
+budget_percent = min(100, int((spending / float(data["daily_budget"]) * 100))) if data["daily_budget"] > 0 else 0
 
 st.markdown(
-    """
+        """
     <style>
         :root {
                 --home-card-bg: var(--secondary-background-color);
