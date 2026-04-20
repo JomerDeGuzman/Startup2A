@@ -1,6 +1,12 @@
 {
-    "student_name": "Student",
-    "daily_tasks": [],
-    "budgets": [],
-    "study": {}
+    "student_name": [],
+    "daily_budget": [],
+    "mood": [],
+    "tomorrow_tasks": [],
+    "tasks": [],
+    "expenses": [],
+    "level": 1,
+    "coins": 0,
+    "last_updated": []
+
 }

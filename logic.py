@@ -26,14 +26,50 @@ def urgency_score(task):
 
     if not deadline:
         return score 
+    
     try:
         target = datetime.strptime(deadline, "%Y-%m-%d")
-
-
-        except ValueError:
-        return score    
+    except ValueError:
+        return score
     
     days = (target - datetime.now()).days
 
     if days < 0:
-        
+        return 100 + score
+    if days == 0:
+        return 90 + score
+    if days == 1:           
+        return 70 + score
+    
+    return max(1, 20 - days) + score
+
+
+def today_plan(data):
+    plan = []
+    tasks = pending_tasks(data)
+    tasks.sort(key=urgency_score, reverse=True)
+    
+    if tasks:
+        plan.append(f"**Tops Quest today: {tasks[0]['title']}**")
+    else:
+        plan.append("No pending quests! Enjoy your day! or add some quests to your schedule.")
+
+    budget = float(data.get("daily_budget", 0))
+    spent = spent_total(data)
+    left = budget - spent
+
+    if budget > 0 and left <= budget * 0.25:
+        plan.append("**You are Broke!** Consider cutting down on expenses or finding ways to earn more coins.")
+    else:
+        plan.append("Your budget still looks good. Keep managing your coins wisely!")
+
+    mood = data.get("mood", "Okay")
+    if mood == "Focused":
+        plan.append("Your mood is great for tackling quests! Stay in the zone and make the most of it.")
+    elif mood in ["Stressed", "Tired"]:
+        plan.append("Your mood suggests you might need a break. Consider taking short rests between quests to recharge.")
+    else:
+        plan.append("keep steady and positive! Your mood is good for handling your quests.")
+    
+    if str(data.get("tomorrow_needs", "")).strip():
+        plan.append(f"Don't forget to check your quests: {data['tomorrow_needs'].strip()}")
