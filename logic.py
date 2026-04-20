@@ -34,5 +34,6 @@ def urgency_score(task):
         return score    
     
     days = (target - datetime.now()).days
+
     if days < 0:
         
