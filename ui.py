@@ -28,8 +28,8 @@ def render_sidebar(data=None, active_page=None, show_sidebar=True):
 
     st.sidebar.markdown("""
                         <div style="padding: 0.9rem; border-radius: 0.9rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center; margin-bottom: 0.9rem;">
-                            <div style="font-size: 0.8rem; opacity: 0.9;">Notes</div>
-                            <div style="font-size: 1.15rem; font-weight: 700;">Quest</div>
+                            <div style="font-size: 0.8rem; opacity: 0.9;"></div>
+                            <div style="font-size: 1.15rem; font-weight: 700;">Student Quest </div>
                         </div>
                         """, unsafe_allow_html=True)
 
