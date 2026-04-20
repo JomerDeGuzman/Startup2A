@@ -6,6 +6,11 @@ from ui import render_sidebar
 
 st.set_page_config(page_title='Student Quest', layout='wide')
 
+# Check if user is logged in
+if "logged_in" not in st.session_state or not st.session_state.logged_in:
+    st.error("Please login first!")
+    st.stop()
+
 
 data = load_data()
 render_sidebar(data,active_page='Home')
